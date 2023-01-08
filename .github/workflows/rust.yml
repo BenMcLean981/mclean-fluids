@@ -48,7 +48,8 @@ jobs:
       - name: Build
         run: wasm-pack build
       - name: Publish
-        run: cd pkg
-      - run: npm publish
+      - run: |
+          cd pkg
+          npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
