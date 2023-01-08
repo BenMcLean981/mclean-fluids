@@ -22,9 +22,9 @@ jobs:
       run: wasm-pack build
     - name: Test
       run: |
-       wasm-pack test --chrome
-       wasm-pack test --firefox
-       wasm-pack test --safari
+       wasm-pack test --headless --chrome
+       wasm-pack test --headless --firefox
+       wasm-pack test --headless --safari
        wasm-pack test --node
     - name: Publish
       run: wasm-pack publish --access=public
