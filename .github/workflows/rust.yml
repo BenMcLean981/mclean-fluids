@@ -24,10 +24,6 @@ jobs:
        wasm-pack test --headless --chrome
        wasm-pack test --headless --firefox
        wasm-pack test --node
-    - name: Publish
-      run: wasm-pack publish --access=public
-      env:
-        NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
   safari-tests:
     runs-on: macos-latest
@@ -41,10 +37,6 @@ jobs:
     - name: Test
       run: |
        wasm-pack test --headless --safari
-    - name: Publish
-      run: wasm-pack publish --access=public
-      env:
-        NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
   
   publish:
   runs-on: ubuntu-latest
@@ -56,6 +48,8 @@ jobs:
       - name: Build
         run: wasm-pack build
       - name: Publish
-        run: wasm-pack publish --access=public
+        run: |
+          echo '//registry.npmjs.org/:_authToken=${NPM_TOKEN}' > .npmrc
+          wasm-pack publish --access=public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
