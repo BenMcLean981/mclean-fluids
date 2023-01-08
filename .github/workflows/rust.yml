@@ -10,8 +10,7 @@ env:
   CARGO_TERM_COLOR: always
 
 jobs:
-  build:
-
+  non-safari-tests:
     runs-on: ubuntu-latest
 
     steps:
@@ -24,9 +23,39 @@ jobs:
       run: |
        wasm-pack test --headless --chrome
        wasm-pack test --headless --firefox
-       wasm-pack test --headless --safari
        wasm-pack test --node
     - name: Publish
       run: wasm-pack publish --access=public
       env:
         NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+  safari-tests:
+    runs-on: macos-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Install
+      run: curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh
+    - name: Build
+      run: wasm-pack build
+    - name: Test
+      run: |
+       wasm-pack test --headless --safari
+    - name: Publish
+      run: wasm-pack publish --access=public
+      env:
+        NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+  
+  publish:
+  runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install
+        run: curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh
+      - name: Build
+        run: wasm-pack build
+      - name: Publish
+        run: wasm-pack publish --access=public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
