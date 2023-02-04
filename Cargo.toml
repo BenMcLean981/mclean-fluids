@@ -3,7 +3,7 @@ name = "mclean-fluids"
 version = "0.1.2"
 authors = ["BenMcLean981 <BenMcLean981@gmail.com>"]
 edition = "2018"
-licene-file = "LICENSE"
+license = "CC BY-NC-SA 4.0"
 
 [lib]
 crate-type = ["cdylib", "rlib"]
