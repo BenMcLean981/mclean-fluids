@@ -10,7 +10,7 @@ env:
   CARGO_TERM_COLOR: always
 
 jobs:
-  non-safari-tests:
+  deploy:
     runs-on: ubuntu-latest
 
     steps:
@@ -24,18 +24,6 @@ jobs:
           wasm-pack test --headless --chrome
           wasm-pack test --headless --firefox
           wasm-pack test --node
-
-  publish:
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v3
-      - name: Install
-        run: curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh
-      - name: Build
-        run: |
-          wasm-pack build
-          cd pkg
       - name: Publish if version has been updated
         uses: pascalgn/npm-publish-action@1.3.9
         with: # All of theses inputs are optional
