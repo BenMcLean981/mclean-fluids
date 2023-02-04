@@ -1,8 +1,9 @@
 [package]
 name = "mclean-fluids"
-version = "0.1.1"
+version = "0.1.2"
 authors = ["BenMcLean981 <BenMcLean981@gmail.com>"]
 edition = "2018"
+licene-file = "LICENSE"
 
 [lib]
 crate-type = ["cdylib", "rlib"]
